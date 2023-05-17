@@ -87,3 +87,4 @@ namespace QuizTime
             Antwoord4.Clear();
         }
     }
+}
