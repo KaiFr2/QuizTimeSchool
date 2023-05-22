@@ -59,7 +59,9 @@ namespace QuizTime
 
             listQuizVragen.Add(new vragenopslaan { vraag1 = Vraag1.Text, antwoord1 = Antwoord1.Text, antwoord2 = Antwoord2.Text, antwoord3 = Antwoord3.Text, antwoord4 = Antwoord4.Text, check = checked_answer });
 
-            json.WriteDataToFile(listQuizVragen);
+            var SaveDataList = json.ReadSavedDataFile();
+            SaveDataList.AddRange(listQuizVragen);
+            json.WriteDataToFile(SaveDataList);
 
             var list = json.ReadSavedDataFile();
         }

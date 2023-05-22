@@ -18,7 +18,7 @@ namespace QuizTime.Class
             var tempJSON = JsonConvert.SerializeObject(argListSavedData, Newtonsoft.Json.Formatting.Indented);
 
             File.WriteAllText(tempSavedDataFilePath, tempJSON);
-        }
+        }   
         public static string GetSavedDataFilePath()
         {
             var startupPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);

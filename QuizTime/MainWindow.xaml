@@ -19,7 +19,7 @@
         <Grid x:Name="Speel" Visibility="Hidden">
 
         </Grid>
-        <Grid x:Name="maaklijst" Visibility="Hidden" RenderTransformOrigin="0.495,0.509">
+        <Grid x:Name="maaklijst" Visibility="Visible" RenderTransformOrigin="0.495,0.509">
             <Label Content="Title " HorizontalAlignment="Left" Margin="386,178,0,0" VerticalAlignment="Top"/>
             <Label Content="Beschrijving" HorizontalAlignment="Left" Margin="385,0,0,0" VerticalAlignment="Center"/>
             <Label Content="Tijd" HorizontalAlignment="Left" Margin="385,305,0,0" VerticalAlignment="Top"/>
@@ -28,7 +28,7 @@
             <TextBox x:Name="tijd" HorizontalAlignment="Left" Margin="388,334,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <Button Content="Submit" HorizontalAlignment="Left" Margin="427,373,0,0" VerticalAlignment="Top" Click="Button_Click_3"/>
         </Grid>
-        <Grid x:Name="maaklijst2" Visibility="Visible">
+        <Grid x:Name="maaklijst2" Visibility="Hidden">
             <CheckBox x:Name="Check4" HorizontalAlignment="Left" Margin="504,314,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.784" Click="onCheckBoxCheck"/>
             <CheckBox x:Name="Check2" HorizontalAlignment="Left" Margin="262,311,0,0" VerticalAlignment="Top" Click="onCheckBoxCheck"/>
             <CheckBox x:Name="Check1" HorizontalAlignment="Left" Margin="262,0,0,0" VerticalAlignment="Center" Click="onCheckBoxCheck"/>
@@ -40,9 +40,8 @@
             <Button x:Name="Quizmaken" Content="Maak de quiz" HorizontalAlignment="Center" Margin="0,390,0,0" VerticalAlignment="Top" Click="Opslaan_Click"/>
             <Button x:Name="Vorige" Content="Vorige" HorizontalAlignment="Left" Margin="303,417,0,0" VerticalAlignment="Top"/>
             <Button x:Name="Volgende" Content="Volgende" HorizontalAlignment="Left" Margin="581,417,0,0" VerticalAlignment="Top" Click="Volgende_Click"/>
-            <TextBox x:Name="Vraag1" HorizontalAlignment="Center" Margin="0,158,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="Vraag1_TextChanged"/>
+            <TextBox x:Name="Vraag1" HorizontalAlignment="Center" Margin="0,158,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <Label Content="Vraag&#xD;&#xA;" HorizontalAlignment="Left" Margin="408,127,0,0" VerticalAlignment="Top"/>
-
         </Grid>
     </Grid>
 </Window>
