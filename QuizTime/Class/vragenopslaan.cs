@@ -8,6 +8,9 @@ namespace QuizTime.Class
 {
     internal class vragenopslaan
     {
+        public int quizid;
+
+        public int VraagID { get; set; }
         public string vraag1 {get;set;}
         public string antwoord1 { get; set; }
         public string antwoord2 { get; set; }
@@ -15,7 +18,5 @@ namespace QuizTime.Class
         public string antwoord4 { get; set; }
 
         public string check { get; set; }
-
-         
     }
 }

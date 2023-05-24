@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Class\json.cs" />
     <Compile Include="Class\Quiz.cs" />
+    <Compile Include="Class\quizopslaan.cs" />
     <Compile Include="Class\vragenopslaan.cs" />
     <Compile Include="lijstmaken.xaml.cs">
       <DependentUpon>lijstmaken.xaml</DependentUpon>

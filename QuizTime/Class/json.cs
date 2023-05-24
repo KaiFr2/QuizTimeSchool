@@ -34,6 +34,9 @@ namespace QuizTime.Class
                 var tempJSON = File.ReadAllText(tempSavedDataFilePath);
                 var tempDeserializedSavedDataFileList = JsonConvert.DeserializeObject<List<vragenopslaan>>(tempJSON);
 
+                if (tempDeserializedSavedDataFileList == null)
+                    return new List<vragenopslaan>();
+
                 return tempDeserializedSavedDataFileList;
             }
             catch (Exception ex)

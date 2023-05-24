@@ -23,7 +23,7 @@
             <Label Content="Title " HorizontalAlignment="Left" Margin="386,178,0,0" VerticalAlignment="Top"/>
             <Label Content="Beschrijving" HorizontalAlignment="Left" Margin="385,0,0,0" VerticalAlignment="Center"/>
             <Label Content="Tijd" HorizontalAlignment="Left" Margin="385,305,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="Title1" HorizontalAlignment="Left" Margin="388,206,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="TitleQTB" HorizontalAlignment="Left" Margin="388,206,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Beschrijving" HorizontalAlignment="Left" Margin="388,270,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="tijd" HorizontalAlignment="Left" Margin="388,334,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <Button Content="Submit" HorizontalAlignment="Left" Margin="427,373,0,0" VerticalAlignment="Top" Click="Button_Click_3"/>

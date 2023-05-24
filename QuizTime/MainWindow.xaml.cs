@@ -23,6 +23,8 @@ namespace QuizTime
     {
 
         private string checked_answer = "";
+        private int currentID = 1;
+        public quizopslaan newQuiz;
 
         public MainWindow()
         {
@@ -47,8 +49,10 @@ namespace QuizTime
             maaklijst.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        public void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            newQuiz = new quizopslaan(0, TitleQTB.Text, Beschrijving.Text, tijd.Text);
+
             maaklijst.Visibility = Visibility.Hidden;
             maaklijst2.Visibility = Visibility.Visible;
         }
@@ -57,14 +61,17 @@ namespace QuizTime
         {
             List<vragenopslaan> listQuizVragen = new List<vragenopslaan>();
 
-            listQuizVragen.Add(new vragenopslaan { vraag1 = Vraag1.Text, antwoord1 = Antwoord1.Text, antwoord2 = Antwoord2.Text, antwoord3 = Antwoord3.Text, antwoord4 = Antwoord4.Text, check = checked_answer });
+            listQuizVragen.Add(new vragenopslaan {quizid = newQuiz.iD, VraagID = currentID ,vraag1 = Vraag1.Text, antwoord1 = Antwoord1.Text, antwoord2 = Antwoord2.Text, antwoord3 = Antwoord3.Text, antwoord4 = Antwoord4.Text, check = checked_answer });
+
+            currentID++; // VraagID
 
             var SaveDataList = json.ReadSavedDataFile();
             SaveDataList.AddRange(listQuizVragen);
             json.WriteDataToFile(SaveDataList);
 
             var list = json.ReadSavedDataFile();
-        }
+        }   
+
 
         private void onCheckBoxCheck(object sender, RoutedEventArgs e)
         {
@@ -76,7 +83,7 @@ namespace QuizTime
             CheckBox current = (CheckBox)sender;
             current.IsChecked = true;
 
-            checked_answer = current.Name.Replace("Check", "");
+            checked_answer = current.Name.Replace("Check", ""); 
             MessageBox.Show(checked_answer);
         }
 
