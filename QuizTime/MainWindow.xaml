@@ -6,20 +6,18 @@
         xmlns:local="clr-namespace:QuizTime"
         mc:Ignorable="d"
         Title="MainWindow" Height="530" Width="937">
-    <Grid x:Name="main">
+    <Grid x:Name="main" Background="#FFE6D696">
         <Grid x:Name="Start" Visibility="Hidden">
             <Label x:Name="Title" Content="Quiztime" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top"/>
             <Button Content="Begin met QuizTime" HorizontalAlignment="Center" Margin="0,257,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         </Grid>
-        <Grid x:Name="mode" Visibility="Hidden">
-            <Button Content="Speel" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click_1"/>
-            <Button Content="Maak Quiz" HorizontalAlignment="Center" Margin="0,296,0,0" VerticalAlignment="Top" Click="Button_Click_2"/>
-            <Button Content="test" HorizontalAlignment="Center" Margin="0,345,0,0" VerticalAlignment="Top"/>
+        <Grid x:Name="homescreen" Visibility="Visible">
+            <Button x:Name="btnspeellijst" Content="Speel" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="btnspeellijst_Click" Height="78" Width="113" Margin="0,179,0,0"/>
+            <Button Content="Maak Quiz" HorizontalAlignment="Center" Margin="0,281,0,0" VerticalAlignment="Top" Click="Maakquiz_Click" Height="69" Width="113"/>
+            <Button x:Name="btnbewerklijst" Content="Bewerk Lijst" HorizontalAlignment="Center" Margin="0,373,0,0" VerticalAlignment="Top" Click="btnbewerklijst_Click" Height="66" Width="113"/>
+            <Image Margin="288,-63,289,296" Source="/pngtree-quiz-time-png-png-image_6099003.png" Stretch="Fill"/>
         </Grid>
-        <Grid x:Name="Speel" Visibility="Hidden">
-
-        </Grid>
-        <Grid x:Name="maaklijst" Visibility="Visible" RenderTransformOrigin="0.495,0.509">
+        <Grid x:Name="maaklijst" Visibility="Hidden" RenderTransformOrigin="0.495,0.509">
             <Label Content="Title " HorizontalAlignment="Left" Margin="386,178,0,0" VerticalAlignment="Top"/>
             <Label Content="Beschrijving" HorizontalAlignment="Left" Margin="385,0,0,0" VerticalAlignment="Center"/>
             <Label Content="Tijd" HorizontalAlignment="Left" Margin="385,305,0,0" VerticalAlignment="Top"/>
@@ -37,11 +35,35 @@
             <TextBox x:Name="Antwoord2" HorizontalAlignment="Left" Margin="303,311,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Antwoord3" HorizontalAlignment="Left" Margin="546,247,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Antwoord4" HorizontalAlignment="Left" Margin="546,311,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="Quizmaken" Content="Maak de quiz" HorizontalAlignment="Center" Margin="0,390,0,0" VerticalAlignment="Top" Click="Opslaan_Click"/>
-            <Button x:Name="Vorige" Content="Vorige" HorizontalAlignment="Left" Margin="303,417,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="Volgende" Content="Volgende" HorizontalAlignment="Left" Margin="581,417,0,0" VerticalAlignment="Top" Click="Volgende_Click"/>
+            <Button x:Name="Quizmaken" Content="Vraag opslaan" HorizontalAlignment="Center" Margin="0,390,0,0" VerticalAlignment="Top" Click="Opslaan_Click"/>
+            <Button x:Name="Volgende" Content="Clear" HorizontalAlignment="Center" Margin="0,427,0,0" VerticalAlignment="Top" Click="Volgende_Click"/>
             <TextBox x:Name="Vraag1" HorizontalAlignment="Center" Margin="0,158,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-            <Label Content="Vraag&#xD;&#xA;" HorizontalAlignment="Left" Margin="408,127,0,0" VerticalAlignment="Top"/>
+            <Label Content="Vraag&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,116,0,0" VerticalAlignment="Top"/>
+            <Button Content="Button" HorizontalAlignment="Center" Margin="0,469,0,0" VerticalAlignment="Top" Click="Button_Click_4"/>
+        </Grid>
+        <Grid x:Name="Kieslijst" Visibility="Hidden">
+            <DataGrid x:Name="dgAllQuizzes" 
+                AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" Margin="0,0,0,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Title" Binding="{Binding title}" />
+                    <DataGridTextColumn Header="ID" Binding="{Binding quizid}" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Spelen" CommandParameter="{Binding quizid}" Click="playbutton"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid x:Name="Speel" Visibility="Hidden">
+            <Label Content="Vraagstelling" HorizontalAlignment="Center" Margin="0,176,0,0" VerticalAlignment="Top"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="95,257,0,0" VerticalAlignment="Top" Height="92" Width="153"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="669,256,0,0" VerticalAlignment="Top" Height="93" Width="152"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="95,367,0,0" VerticalAlignment="Top" Height="104" Width="153"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="669,367,0,0" VerticalAlignment="Top" Height="104" Width="152"/>
+            <Label Content="Tijd" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Window>
