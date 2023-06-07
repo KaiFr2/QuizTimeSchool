@@ -3,48 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace QuizTime.Class
 {
-    using System;
-    using System.Collections.Generic;
-
-    public class Quiz
+    public class quiz
     {
-        public int Id { get; set; }
-        public List<Question> Questions { get; set; }
+        public int iD { get; set; }
+        public string title { get; set; }
 
-        public Quiz(int id, List<Question> questions)
+        public string beschrijving { get; set; }
+
+        //Time for each question.
+        public string tijd { get; set; }
+
+        public List<vraag> vragen { get; set; } = new List<vraag>(); 
+        public quiz(int iD, string title, string beschrijving, string tijd)
         {
-            Id = id;
-            Questions = questions;
+            this.iD = iD;
+            this.title = title;
+            this.beschrijving = beschrijving;
+            this.tijd = tijd;
         }
-    }
 
-    public class Question
-    {
-        public int Id { get; set; }
-        public string QuestionText { get; set; }
-        public List<Answer> Answers { get; set; }
-
-        public Question(int id, string questionText, List<Answer> answers)
+        public void newVraag(string vraagtext_, string[] antwoord_, int correctAntwoord_)
         {
-            Id = id;
-            QuestionText = questionText;
-            Answers = answers;
+            int newID;
+
+            if (vragen.Count > 0)
+            {
+                // Get the latest ID from the existing questions
+                newID = vragen.Max(q => q.VraagID) + 1;
+            }
+            else
+            {
+                // If there are no existing questions, start with ID 1
+                newID = 0;
+            }
+
+            vragen.Add(new vraag(newID, vraagtext_, antwoord_, correctAntwoord_));
         }
+
     }
-
-    public class Answer
-    {
-        public string AnswerText { get; set; }
-        public bool IsCorrect { get; set; }
-
-        public Answer(string answerText, bool isCorrect)
-        {
-            AnswerText = answerText;
-            IsCorrect = isCorrect;
-        }
-    }
-
 }

@@ -25,7 +25,7 @@ namespace QuizTime
 
         private string checked_answer = "";
         private int currentID = 1;
-        public quizopslaan newQuiz;
+        public quiz currentQuiz;
         int quizID;
         string quizzz;
         int selectid;
@@ -48,8 +48,7 @@ namespace QuizTime
             homescreen.Visibility = Visibility.Hidden;
             Kieslijst.Visibility = Visibility.Visible;
             //leest het json file en maakt er een datagrid van
-            var SaveDataList = json.ReadSavedDataFile();
-            vragenopslaan vragenopslaan = new vragenopslaan();
+            var SaveDataList = json.readAllQuizes();
 
             dgAllQuizzes.ItemsSource = null;
             dgAllQuizzes.ItemsSource = SaveDataList;
@@ -59,16 +58,15 @@ namespace QuizTime
         {
             homescreen.Visibility = Visibility.Hidden;
             maaklijst.Visibility = Visibility.Visible;
-            currentID = 1;
 
-            //cleared alle textboxes
+            //clear alle textboxes
             TitleQTB.Clear();
             Beschrijving.Clear();
             tijd.Clear();
-            Vraag1.Clear();
+            Vraagtextbox.Clear();
             Antwoord1.Clear();
             Antwoord2.Clear();
-            Antwoord3.Clear();
+            Antwoord3.Clear();  
             Antwoord4.Clear();
         }
 
@@ -77,8 +75,8 @@ namespace QuizTime
             //quiz id
             quizzz = File.ReadAllText("count.txt");
             quizID = int.Parse(quizzz);
-            //opslaan van de quiz
-            newQuiz = new quizopslaan(quizID, TitleQTB.Text, Beschrijving.Text, tijd.Text);
+            //opslaan quiz items
+            currentQuiz = new quiz(quizID, TitleQTB.Text, Beschrijving.Text, tijd.Text);
 
             maaklijst.Visibility = Visibility.Hidden;
             maaklijst2.Visibility = Visibility.Visible;
@@ -86,26 +84,33 @@ namespace QuizTime
 
         private void Opslaan_Click(object sender, RoutedEventArgs e)
         {
-            //opslaan van de vragen
+            // Increment quizID
             quizID++;
             File.WriteAllText("count.txt", quizID.ToString());
-            List<vragenopslaan> listQuizVragen = new List<vragenopslaan>();
 
-            listQuizVragen.Add(new vragenopslaan {quizid = newQuiz.iD, VraagID = currentID, title = TitleQTB.Text  ,vraag1 = Vraag1.Text, antwoord1 = Antwoord1.Text, antwoord2 = Antwoord2.Text, antwoord3 = Antwoord3.Text, antwoord4 = Antwoord4.Text, check = checked_answer });
+            // Store answer options in an array
+            string[] vraagOpties = new string[4];
+            vraagOpties[0] = Antwoord1.Text;
+            vraagOpties[1] = Antwoord2.Text;
+            vraagOpties[2] = Antwoord3.Text;
+            vraagOpties[3] = Antwoord4.Text;
 
-            currentID++; // VraagID
+            // Call newVraag method with the necessary parameters
+            currentQuiz.newVraag(Vraagtextbox.Text, vraagOpties, int.Parse(checked_answer));
 
-            var SaveDataList = json.ReadSavedDataFile();
-            SaveDataList.AddRange(listQuizVragen);
-            json.WriteDataToFile(SaveDataList);
-
-            var list = json.ReadSavedDataFile();
-
-            MessageBox.Show("Vraag opgeslagen", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
-
-
+            // Display "Vraag opgeslagen" message
+            MessageBox.Show("Vraag opgeslagen");
         }
 
+
+        private void Quizopslaan_click(object sender, RoutedEventArgs e)
+        {
+            // Add listQuizVragen or the appropriate questions list to SaveDataList
+            json.WriteDataToFile(currentQuiz);
+
+            maaklijst2.Visibility = Visibility.Hidden;
+            homescreen.Visibility = Visibility.Visible;
+        }
 
         private void onCheckBoxCheck(object sender, RoutedEventArgs e)
         {
@@ -122,10 +127,10 @@ namespace QuizTime
             MessageBox.Show(checked_answer);
         }
 
-        private void Volgende_Click(object sender, RoutedEventArgs e)
+        private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            //clear knop
-            Vraag1.Clear();
+            //clear alles knop
+            Vraagtextbox.Clear();
             Antwoord1.Clear();
             Antwoord2.Clear();
             Antwoord3.Clear();
@@ -134,21 +139,9 @@ namespace QuizTime
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
+            //Back button
             maaklijst2.Visibility = Visibility.Hidden;
             homescreen.Visibility = Visibility.Visible;
-        }
-
-        private void btnbewerklijst_Click(object sender, RoutedEventArgs e)
-        {
-            //bewerk pagina WIP
-            homescreen.Visibility = Visibility.Hidden;
-            Kieslijst.Visibility = Visibility.Visible;
-
-            var SaveDataList = json.ReadSavedDataFile();
-            vragenopslaan vragenopslaan = new vragenopslaan();
-
-            dgAllQuizzes.ItemsSource = null;
-            dgAllQuizzes.ItemsSource = SaveDataList;
         }
 
         private void playbutton(object sender, RoutedEventArgs e)

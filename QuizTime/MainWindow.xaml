@@ -12,9 +12,8 @@
             <Button Content="Begin met QuizTime" HorizontalAlignment="Center" Margin="0,257,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         </Grid>
         <Grid x:Name="homescreen" Visibility="Visible">
-            <Button x:Name="btnspeellijst" Content="Speel" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="btnspeellijst_Click" Height="78" Width="113" Margin="0,179,0,0"/>
-            <Button Content="Maak Quiz" HorizontalAlignment="Center" Margin="0,281,0,0" VerticalAlignment="Top" Click="Maakquiz_Click" Height="69" Width="113"/>
-            <Button x:Name="btnbewerklijst" Content="Bewerk Lijst" HorizontalAlignment="Center" Margin="0,373,0,0" VerticalAlignment="Top" Click="btnbewerklijst_Click" Height="66" Width="113"/>
+            <Button x:Name="btnspeellijst" Content="Kies lijst" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="btnspeellijst_Click" Height="121" Width="188" Margin="0,192,0,0"/>
+            <Button Content="Maak Quiz" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Click="Maakquiz_Click" Height="116" Width="188"/>
             <Image Margin="288,-63,289,296" Source="/pngtree-quiz-time-png-png-image_6099003.png" Stretch="Fill"/>
         </Grid>
         <Grid x:Name="maaklijst" Visibility="Hidden" RenderTransformOrigin="0.495,0.509">
@@ -35,15 +34,15 @@
             <TextBox x:Name="Antwoord2" HorizontalAlignment="Left" Margin="303,311,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Antwoord3" HorizontalAlignment="Left" Margin="546,247,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Antwoord4" HorizontalAlignment="Left" Margin="546,311,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="Quizmaken" Content="Vraag opslaan" HorizontalAlignment="Center" Margin="0,390,0,0" VerticalAlignment="Top" Click="Opslaan_Click"/>
-            <Button x:Name="Volgende" Content="Clear" HorizontalAlignment="Center" Margin="0,427,0,0" VerticalAlignment="Top" Click="Volgende_Click"/>
-            <TextBox x:Name="Vraag1" HorizontalAlignment="Center" Margin="0,158,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+            <Button x:Name="Quizmaken" Content="Vraag opslaan" HorizontalAlignment="Center" Margin="0,356,0,0" VerticalAlignment="Top" Click="Opslaan_Click" Height="47" Width="120"/>
+            <Button x:Name="Clear" Content="Clear" HorizontalAlignment="Center" Margin="0,408,0,0" VerticalAlignment="Top" Click="Clear_Click" Height="37" Width="120"/>
+            <TextBox x:Name="Vraagtextbox" HorizontalAlignment="Center" Margin="0,158,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <Label Content="Vraag&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,116,0,0" VerticalAlignment="Top"/>
-            <Button Content="Button" HorizontalAlignment="Center" Margin="0,469,0,0" VerticalAlignment="Top" Click="Button_Click_4"/>
+            <Button Content="Home" HorizontalAlignment="Center" Margin="0,450,0,0" VerticalAlignment="Top" Click="Button_Click_4" Height="45" Width="120"/>
+            <Button Content="Maak Quiz" HorizontalAlignment="Left" Margin="270,408,0,0" Click="Quizopslaan_click" VerticalAlignment="Top" Height="37" Width="93"/>
         </Grid>
         <Grid x:Name="Kieslijst" Visibility="Hidden">
-            <DataGrid x:Name="dgAllQuizzes" 
-                AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" Margin="0,0,0,10">
+            <DataGrid x:Name="dgAllQuizzes" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" Margin="0,0,0,10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Title" Binding="{Binding title}" />
                     <DataGridTextColumn Header="ID" Binding="{Binding quizid}" />
@@ -54,8 +53,16 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Bewerk Knop"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+
         </Grid>
         <Grid x:Name="Speel" Visibility="Hidden">
             <Label Content="Vraagstelling" HorizontalAlignment="Center" Margin="0,176,0,0" VerticalAlignment="Top"/>

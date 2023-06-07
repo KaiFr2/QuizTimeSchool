@@ -35,11 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.7.0.0\lib\net462\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,9 +75,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Class\json.cs" />
-    <Compile Include="Class\Quiz.cs" />
-    <Compile Include="Class\quizopslaan.cs" />
-    <Compile Include="Class\vragenopslaan.cs" />
+    <Compile Include="Class\quiz.cs" />
+    <Compile Include="Class\vraag.cs" />
     <Compile Include="lijstmaken.xaml.cs">
       <DependentUpon>lijstmaken.xaml</DependentUpon>
     </Compile>
