@@ -1,4 +1,5 @@
-﻿using QuizTime.Class;
+﻿using Newtonsoft.Json;
+using QuizTime.Class;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,8 +29,7 @@ namespace QuizTime
         public quiz currentQuiz;
         int quizID;
         string quizzz;
-        int selectid;
-
+        Adminpanel admin = new Adminpanel();
         public MainWindow()
         {
             InitializeComponent();
@@ -146,15 +146,17 @@ namespace QuizTime
 
         private void playbutton(object sender, RoutedEventArgs e)
         {
-            //knop om quiz te spelen
+            // Hide the Kieslijst and show the Speel
             Kieslijst.Visibility = Visibility.Hidden;
             Speel.Visibility = Visibility.Visible;
 
-            var button = sender as Button;
+            // Show the admin panel
+            admin.Show();
 
-            int tempquizid = (int)button.CommandParameter;
-
-            selectid = tempquizid;
+            //Pakt de ID van de quiz
+            Button button = sender as Button;
+            var id = button.Tag;
+            MessageBox.Show(Convert.ToString(id));
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿<Window x:Class="QuizTime.Adminpanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuizTime"
+        mc:Ignorable="d"
+        Title="Adminpanel" Height="450" Width="800">
+    <Grid>
+        <Button Content="Vorige vraag" HorizontalAlignment="Left" Margin="101,315,0,0" VerticalAlignment="Top" Height="82" Width="170" Click="Vorige_Click"/>
+        <Button Content="Volgende vraag" HorizontalAlignment="Left" Margin="525,315,0,0" VerticalAlignment="Top" Height="82" Width="167" Click="Volgende_Click"/>
+        <Button Content="Toon antwoord" HorizontalAlignment="Center" Margin="0,172,0,0" VerticalAlignment="Top" Height="81" Width="96" Click="Toon_Click"/>
+        <Button Content="Tijd starten" HorizontalAlignment="Left" Margin="138,44,0,0" VerticalAlignment="Top" Height="73" Width="96" Click="Tijdstart_Click"/>
+        <Button Content="Tijd stoppen" HorizontalAlignment="Left" Margin="560,39,0,0" VerticalAlignment="Top" Height="73" Width="96" Click="Tijdstop_Click"/>
+    </Grid>
+</Window>

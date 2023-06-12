@@ -17,15 +17,13 @@ namespace QuizTime.Class
 
         public vraag (int VraagiD_, string vraagtext_, string[] antwoord_, int correctAntwoord_)
         {
-            /*for (int i = 0; i < antwoord.Length; i++)
+            if (antwoord_ != null) for (int i = 0; i < antwoord.Length; i++)
             {
                 antwoord[i] = antwoord_[i];
-            }*/
+            }
             VraagID = VraagiD_;
             vraagtext = vraagtext_;
             correctAntwoord = correctAntwoord_;
-        }
-        
-
+        }       
     }
 }

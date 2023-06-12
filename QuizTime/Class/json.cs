@@ -20,23 +20,31 @@ namespace QuizTime.Class
             var tempJSON = JsonConvert.SerializeObject(quiz_, Newtonsoft.Json.Formatting.Indented);
 
             File.WriteAllText(tempSavedDataFilePath, tempJSON);
-        }   
+        }
         public static string GetSavedDataFilePath(int quiz_id)
         {
             var startupPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            var parentFolder = Directory.GetParent(startupPath).FullName;
+            var quizzesFolderPath = Path.Combine(parentFolder, "Debug\\quizzes");
 
-            var UsageFilePath = Path.Combine(startupPath, quiz_id + ".SavedData.json");
-            
-            return UsageFilePath;
+            if (!Directory.Exists(quizzesFolderPath))
+                Directory.CreateDirectory(quizzesFolderPath);
+
+            var savedDataFilePath = Path.Combine(quizzesFolderPath, quiz_id + ".SavedData.json");
+
+            return savedDataFilePath;
         }
+
+
         public static List<quiz> readAllQuizes()
         {
             var appDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            var quizzesFolderPath = Path.Combine(appDir, "quizzes");
+
             Matcher matcher = new Matcher();
             matcher.AddIncludePatterns(new[] { "*.SavedData.json" });
 
-
-            IEnumerable<string> matchingFiles = matcher.GetResultsInFullPath(appDir);
+            IEnumerable<string> matchingFiles = matcher.GetResultsInFullPath(quizzesFolderPath);
 
             var list = new List<quiz>();
 
@@ -46,24 +54,26 @@ namespace QuizTime.Class
                 list.Add(JsonConvert.DeserializeObject<quiz>(content));
             }
             return list;
-
-            /*try
-            {
-                var tempSavedDataFilePath = GetSavedDataFilePath(12);
-
-                var tempJSON = File.ReadAllText(tempSavedDataFilePath);
-                var tempDeserializedSavedDataFileList = JsonConvert.DeserializeObject<List<vraag>>(tempJSON);
-
-                if (tempDeserializedSavedDataFileList == null)
-                    return new List<vraag>();
-
-                return tempDeserializedSavedDataFileList;
-            }
-            catch (Exception ex)
-            {
-                return new List<vraag>();
-            }*/
         }
 
+
+        /*try
+        {
+            var tempSavedDataFilePath = GetSavedDataFilePath(12);
+
+            var tempJSON = File.ReadAllText(tempSavedDataFilePath);
+            var tempDeserializedSavedDataFileList = JsonConvert.DeserializeObject<List<vraag>>(tempJSON);
+
+            if (tempDeserializedSavedDataFileList == null)
+                return new List<vraag>();
+
+            return tempDeserializedSavedDataFileList;
+        }
+        catch (Exception ex)
+        {
+            return new List<vraag>();
+        }*/
     }
+
 }
+
