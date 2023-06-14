@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="530" Width="937">
     <Grid x:Name="main" Background="#FFE6D696">
-        <Grid x:Name="Start" Visibility="Visible">
+        <Grid x:Name="Start" Visibility="Hidden">
             <Label x:Name="Title" Content="Quiztime" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top"/>
             <Button Content="Begin met QuizTime" HorizontalAlignment="Center" Margin="0,257,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         </Grid>
-        <Grid x:Name="homescreen" Visibility="Hidden">
+        <Grid x:Name="homescreen" Visibility="Visible">
             <Button x:Name="btnspeellijst" Content="Kies lijst" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="btnspeellijst_Click" Height="121" Width="188" Margin="0,192,0,0" FontFamily="Gill Sans Ultra Bold" FontSize="16" Background="#FFFFE959" Foreground="#FF802892"/>
             <Button Content="Maak Quiz" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Click="Maakquiz_Click" Height="116" Width="188" FontFamily="Gill Sans Ultra Bold" FontSize="16" Background="#FFFFE959" Foreground="#FF802892"/>
             <Image Margin="288,-63,289,296" Source="/pngtree-quiz-time-png-png-image_6099003.png" Stretch="Fill"/>
@@ -66,21 +66,13 @@
 
         </Grid>
         <Grid x:Name="Speel" Visibility="Hidden">
-            <Label Content="Vraagstelling" HorizontalAlignment="Center" Margin="0,231,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="Vraagstelling" Content="Vraagstelling" HorizontalAlignment="Center" Margin="0,231,0,0" VerticalAlignment="Top"/>
             <Label Content="Tijd" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="Antwoordbox1" Content="Label" HorizontalAlignment="Left" Margin="226,275,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FF0F00FF" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
-            <Label x:Name="Antwoordbox2" Content="Label" HorizontalAlignment="Left" Margin="226,402,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FFF800FF" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
-            <Label x:Name="Antwoordbox3" Content="Label" HorizontalAlignment="Left" Margin="576,275,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="Red" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White">
-                <UIElement.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </UIElement.RenderTransform>
+            <Label x:Name="Antwoordbox0" Content="Label" HorizontalAlignment="Left" Margin="226,275,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FF0F00FF" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
+            <Label x:Name="Antwoordbox1" Content="Label" HorizontalAlignment="Left" Margin="226,402,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FFF800FF" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
+            <Label x:Name="Antwoordbox2" Content="Label" HorizontalAlignment="Left" Margin="576,275,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="Red" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White">
             </Label>
-            <Label x:Name="Antwoordbox4" Content="Label" HorizontalAlignment="Left" Margin="576,402,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FF24FF00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
+            <Label x:Name="Antwoordbox3" Content="Label" HorizontalAlignment="Left" Margin="576,402,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FF24FF00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
         </Grid>
     </Grid>
 </Window>

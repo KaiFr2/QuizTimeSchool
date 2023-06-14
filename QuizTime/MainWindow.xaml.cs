@@ -35,6 +35,7 @@ namespace QuizTime
             InitializeComponent();
         }
 
+        //Begin scherm knop
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //start scherm
@@ -42,6 +43,7 @@ namespace QuizTime
             homescreen.Visibility = Visibility.Visible; 
         }
 
+        //Het knop om naar het datagrid te gaan en json ophalen en alle quizzes laten zien
         private void btnspeellijst_Click(object sender, RoutedEventArgs e)
         {
             
@@ -54,6 +56,8 @@ namespace QuizTime
             dgAllQuizzes.ItemsSource = SaveDataList;
         }
 
+
+        //Het opslaan van de quiz gegevens en dan door gaan naar de vragen van de quiz
         private void Maakquiz_Click(object sender, RoutedEventArgs e)
         {
             homescreen.Visibility = Visibility.Hidden;
@@ -70,6 +74,7 @@ namespace QuizTime
             Antwoord4.Clear();
         }
 
+        //Het optellen van de quizID
         public void Button_Click_3(object sender, RoutedEventArgs e)
         {
             //quiz id
@@ -82,6 +87,7 @@ namespace QuizTime
             maaklijst2.Visibility = Visibility.Visible;
         }
 
+        //Het opslaan van de vragen
         private void Opslaan_Click(object sender, RoutedEventArgs e)
         {
             // Increment quizID
@@ -103,6 +109,8 @@ namespace QuizTime
         }
 
 
+        //Het opsturen van de quiz data naar json.
+
         private void Quizopslaan_click(object sender, RoutedEventArgs e)
         {
             // Add listQuizVragen or the appropriate questions list to SaveDataList
@@ -112,6 +120,8 @@ namespace QuizTime
             homescreen.Visibility = Visibility.Visible;
         }
 
+
+        //Checkbox checken knop
         private void onCheckBoxCheck(object sender, RoutedEventArgs e)
         {
             //checkbox opslaan van de goede antwoord
@@ -127,6 +137,8 @@ namespace QuizTime
             MessageBox.Show(checked_answer);
         }
 
+
+        //Textboxes clearen
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             //clear alles knop
@@ -137,6 +149,7 @@ namespace QuizTime
             Antwoord4.Clear();
         }
 
+        //Terug naar home button
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             //Back button
@@ -144,6 +157,8 @@ namespace QuizTime
             homescreen.Visibility = Visibility.Visible;
         }
 
+
+        //Het spelen van de quiz knop
         private void playbutton(object sender, RoutedEventArgs e)
         {
             // Hide the Kieslijst and show the Speel
@@ -157,6 +172,20 @@ namespace QuizTime
             Button button = sender as Button;
             var id = button.Tag;
             MessageBox.Show(Convert.ToString(id));
+
+            //Roept de functie op voor het ophalen van de juiste quiz ID
+            currentQuiz = json.FetchQuiz((int)id);
+
+            //displayed het vraag
+            Vraagstelling.Content = currentQuiz.vragen[0].vraagtext;
+
+            //loop waar de antwoorden doorheen worden gekeken en dat in de labels word erin gezet
+            for (int i = 0; i < currentQuiz.vragen[0].antwoord.Length; i++)
+            {
+                var lbl = Speel.FindName("Antwoordbox" + i.ToString()) as Label;
+                lbl.Content = currentQuiz.vragen[0].antwoord[i];
+            }
         }
+
     }
 }

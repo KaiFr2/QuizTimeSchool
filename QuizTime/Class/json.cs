@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace QuizTime.Class
 {
-    internal class json
+    public static class json
     {
         public static void WriteDataToFile(quiz quiz_)
         {
@@ -56,24 +56,36 @@ namespace QuizTime.Class
             return list;
         }
 
+    public static quiz FetchQuiz(int id)
+    {
+        string filePath = GetSavedDataFilePath(id);
 
-        /*try
-        {
-            var tempSavedDataFilePath = GetSavedDataFilePath(12);
+        // Read the JSON file
+        string jsonContent = File.ReadAllText(filePath);
 
-            var tempJSON = File.ReadAllText(tempSavedDataFilePath);
-            var tempDeserializedSavedDataFileList = JsonConvert.DeserializeObject<List<vraag>>(tempJSON);
+        // Deserialize the JSON into Quiz object
+        quiz quiz = JsonConvert.DeserializeObject<quiz>(jsonContent);
 
-            if (tempDeserializedSavedDataFileList == null)
-                return new List<vraag>();
-
-            return tempDeserializedSavedDataFileList;
-        }
-        catch (Exception ex)
-        {
-            return new List<vraag>();
-        }*/
+        return quiz;
     }
+
+    /*try
+    {
+        var tempSavedDataFilePath = GetSavedDataFilePath(12);
+
+        var tempJSON = File.ReadAllText(tempSavedDataFilePath);
+        var tempDeserializedSavedDataFileList = JsonConvert.DeserializeObject<List<vraag>>(tempJSON);
+
+        if (tempDeserializedSavedDataFileList == null)
+            return new List<vraag>();
+
+        return tempDeserializedSavedDataFileList;
+    }
+    catch (Exception ex)
+    {
+        return new List<vraag>();
+    }*/
+}
 
 }
 
