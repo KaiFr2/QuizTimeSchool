@@ -29,7 +29,7 @@ namespace QuizTime
         public quiz currentQuiz;
         int quizID;
         string quizzz;
-        Adminpanel admin = new Adminpanel();
+        //Adminpanel adminWindow = new Adminpanel();
         public MainWindow()
         {
             InitializeComponent();
@@ -134,7 +134,6 @@ namespace QuizTime
             current.IsChecked = true;
 
             checked_answer = current.Name.Replace("Check", ""); 
-            MessageBox.Show(checked_answer);
         }
 
 
@@ -166,18 +165,27 @@ namespace QuizTime
             Speel.Visibility = Visibility.Visible;
 
             // Show the admin panel
-            admin.Show();
+            Adminpanel ControlPanelWindow = new Adminpanel();
+            Adminpanel.MainWindowScherm = this; 
+            ControlPanelWindow.Show();
+
 
             //Pakt de ID van de quiz
             Button button = sender as Button;
             var id = button.Tag;
-            MessageBox.Show(Convert.ToString(id));
 
             //Roept de functie op voor het ophalen van de juiste quiz ID
             currentQuiz = json.FetchQuiz((int)id);
 
             //displayed het vraag
             Vraagstelling.Content = currentQuiz.vragen[0].vraagtext;
+
+            //variable voor tijd
+            var timerValue = currentQuiz.tijd;
+
+            // Timer display
+            TijdLabel.Content = "Tijd: " + timerValue.ToString(); 
+
 
             //loop waar de antwoorden doorheen worden gekeken en dat in de labels word erin gezet
             for (int i = 0; i < currentQuiz.vragen[0].antwoord.Length; i++)
