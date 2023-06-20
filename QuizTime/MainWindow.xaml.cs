@@ -42,6 +42,11 @@ namespace QuizTime
             Start.Visibility = Visibility.Hidden;
             homescreen.Visibility = Visibility.Visible; 
         }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            maaklijst.Visibility = Visibility.Hidden;
+            homescreen.Visibility = Visibility.Visible;
+        }
 
         //Het knop om naar het datagrid te gaan en json ophalen en alle quizzes laten zien
         private void btnspeellijst_Click(object sender, RoutedEventArgs e)
@@ -68,15 +73,36 @@ namespace QuizTime
             Beschrijving.Clear();
             tijd.Clear();
             Vraagtextbox.Clear();
+            Antwoord0.Clear();
             Antwoord1.Clear();
-            Antwoord2.Clear();
-            Antwoord3.Clear();  
-            Antwoord4.Clear();
+            Antwoord2.Clear();  
+            Antwoord3.Clear();
         }
 
         //Het optellen van de quizID
         public void Button_Click_3(object sender, RoutedEventArgs e)
-        {
+{
+          // Check if all textboxes have valid input
+         if (string.IsNullOrWhiteSpace(TitleQTB.Text))
+         {
+             MessageBox.Show("Vul de titel in.");
+             return;
+         }
+
+          if (string.IsNullOrWhiteSpace(Beschrijving.Text))
+         {
+              MessageBox.Show("Vul een beschrijving.");
+              return;
+           }
+
+           if (string.IsNullOrWhiteSpace(tijd.Text))
+           {
+              MessageBox.Show("Vul een tijd in.");
+              return;
+           }
+
+            // Additional validation logic if needed
+
             //quiz id
             quizzz = File.ReadAllText("count.txt");
             quizID = int.Parse(quizzz);
@@ -87,19 +113,43 @@ namespace QuizTime
             maaklijst2.Visibility = Visibility.Visible;
         }
 
+
         //Het opslaan van de vragen
         private void Opslaan_Click(object sender, RoutedEventArgs e)
         {
+            // Check if all textboxes have valid input
+            if (string.IsNullOrWhiteSpace(Vraagtextbox.Text))
+            {
+                MessageBox.Show("Vul een vraag in.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(Antwoord0.Text) || string.IsNullOrWhiteSpace(Antwoord1.Text) || string.IsNullOrWhiteSpace(Antwoord2.Text) || string.IsNullOrWhiteSpace(Antwoord3.Text))
+            {
+                MessageBox.Show("Vul alle antwoorden in.");
+                return;
+            }
+
+            // Check if a correct answer is selected
+            if (!(Check0.IsChecked == true || Check1.IsChecked == true || Check2.IsChecked == true || Check3.IsChecked == true))
+            {
+                MessageBox.Show("Kies een correct antwoord.");
+                return;
+            }
+
+
+            // Additional validation logic if needed
+
             // Increment quizID
             quizID++;
             File.WriteAllText("count.txt", quizID.ToString());
 
             // Store answer options in an array
             string[] vraagOpties = new string[4];
-            vraagOpties[0] = Antwoord1.Text;
-            vraagOpties[1] = Antwoord2.Text;
-            vraagOpties[2] = Antwoord3.Text;
-            vraagOpties[3] = Antwoord4.Text;
+            vraagOpties[0] = Antwoord0.Text;
+            vraagOpties[1] = Antwoord1.Text;
+            vraagOpties[2] = Antwoord2.Text;
+            vraagOpties[3] = Antwoord3.Text;
 
             // Call newVraag method with the necessary parameters
             currentQuiz.newVraag(Vraagtextbox.Text, vraagOpties, int.Parse(checked_answer));
@@ -107,6 +157,7 @@ namespace QuizTime
             // Display "Vraag opgeslagen" message
             MessageBox.Show("Vraag opgeslagen");
         }
+
 
 
         //Het opsturen van de quiz data naar json.
@@ -125,10 +176,10 @@ namespace QuizTime
         private void onCheckBoxCheck(object sender, RoutedEventArgs e)
         {
             //checkbox opslaan van de goede antwoord
+            Check0.IsChecked = false;
             Check1.IsChecked = false;
             Check2.IsChecked = false;
             Check3.IsChecked = false;
-            Check4.IsChecked = false;
 
             CheckBox current = (CheckBox)sender;
             current.IsChecked = true;
@@ -136,16 +187,15 @@ namespace QuizTime
             checked_answer = current.Name.Replace("Check", ""); 
         }
 
-
         //Textboxes clearen
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             //clear alles knop
             Vraagtextbox.Clear();
+            Antwoord0.Clear();
             Antwoord1.Clear();
             Antwoord2.Clear();
             Antwoord3.Clear();
-            Antwoord4.Clear();
         }
 
         //Terug naar home button
@@ -184,7 +234,9 @@ namespace QuizTime
             var timerValue = currentQuiz.tijd;
 
             // Timer display
-            TijdLabel.Content = "Tijd: " + timerValue.ToString(); 
+            TijdLabel.Content = "Tijd: " + timerValue.ToString();
+
+            ControlPanelWindow.UpdateQuestionCounter();
 
 
             //loop waar de antwoorden doorheen worden gekeken en dat in de labels word erin gezet
@@ -194,6 +246,13 @@ namespace QuizTime
                 lbl.Content = currentQuiz.vragen[0].antwoord[i];
             }
         }
+        private void Bewerkclick(object sender, RoutedEventArgs e)
+        {
+            // Get the selected quiz ID from the data grid
+            Button button = sender as Button;
+            var id = button.Tag;
 
+              currentQuiz = json.FetchQuiz((int)id);
+        }
     }
 }
