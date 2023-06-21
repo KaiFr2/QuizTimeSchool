@@ -40,7 +40,7 @@ namespace QuizTime
         {
             //start scherm
             Start.Visibility = Visibility.Hidden;
-            homescreen.Visibility = Visibility.Visible; 
+            homescreen.Visibility = Visibility.Visible;
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -51,7 +51,7 @@ namespace QuizTime
         //Het knop om naar het datagrid te gaan en json ophalen en alle quizzes laten zien
         private void btnspeellijst_Click(object sender, RoutedEventArgs e)
         {
-            
+
             homescreen.Visibility = Visibility.Hidden;
             Kieslijst.Visibility = Visibility.Visible;
             //leest het json file en maakt er een datagrid van
@@ -75,31 +75,31 @@ namespace QuizTime
             Vraagtextbox.Clear();
             Antwoord0.Clear();
             Antwoord1.Clear();
-            Antwoord2.Clear();  
+            Antwoord2.Clear();
             Antwoord3.Clear();
         }
 
         //Het optellen van de quizID
         public void Button_Click_3(object sender, RoutedEventArgs e)
-{
-          // Check if all textboxes have valid input
-         if (string.IsNullOrWhiteSpace(TitleQTB.Text))
-         {
-             MessageBox.Show("Vul de titel in.");
-             return;
-         }
+        {
+            // Check if all textboxes have valid input
+            if (string.IsNullOrWhiteSpace(TitleQTB.Text))
+            {
+                MessageBox.Show("Vul de titel in.");
+                return;
+            }
 
-          if (string.IsNullOrWhiteSpace(Beschrijving.Text))
-         {
-              MessageBox.Show("Vul een beschrijving.");
-              return;
-           }
+            if (string.IsNullOrWhiteSpace(Beschrijving.Text))
+            {
+                MessageBox.Show("Vul een beschrijving.");
+                return;
+            }
 
-           if (string.IsNullOrWhiteSpace(tijd.Text))
-           {
-              MessageBox.Show("Vul een tijd in.");
-              return;
-           }
+            if (string.IsNullOrWhiteSpace(tijd.Text))
+            {
+                MessageBox.Show("Vul een tijd in.");
+                return;
+            }
 
             // Additional validation logic if needed
 
@@ -184,7 +184,7 @@ namespace QuizTime
             CheckBox current = (CheckBox)sender;
             current.IsChecked = true;
 
-            checked_answer = current.Name.Replace("Check", ""); 
+            checked_answer = current.Name.Replace("Check", "");
         }
 
         //Textboxes clearen
@@ -216,7 +216,7 @@ namespace QuizTime
 
             // Show the admin panel
             Adminpanel ControlPanelWindow = new Adminpanel();
-            Adminpanel.MainWindowScherm = this; 
+            Adminpanel.MainWindowScherm = this;
             ControlPanelWindow.Show();
 
 
@@ -246,13 +246,66 @@ namespace QuizTime
                 lbl.Content = currentQuiz.vragen[0].antwoord[i];
             }
         }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            //currentIndex++;
+            //UpdateQuestionAndAnswers();
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            //currentIndex--;
+            //UpdateQuestionAndAnswers();
+        }
+
         private void Bewerkclick(object sender, RoutedEventArgs e)
         {
+            Kieslijst.Visibility = Visibility.Hidden;
+            Bewerkpg.Visibility = Visibility.Visible;
+
             // Get the selected quiz ID from the data grid
             Button button = sender as Button;
-            var id = button.Tag;
+            if (button != null && button.Tag is int id)
+            {
+                currentQuiz = json.FetchQuiz(id);
 
-              currentQuiz = json.FetchQuiz((int)id);
+                // Display the quiz details
+                if (currentQuiz != null)
+                {
+                    // Display the title, description, and time
+                    TitleEdit.Text = currentQuiz.title;
+                    BeschrijvingEdit.Text = currentQuiz.beschrijving;
+                    TijdEdit.Text = currentQuiz.tijd;
+
+                    // Display the question and answers in the textboxes and checkboxes
+                    if (currentQuiz.vragen.Count > 0)
+                    {
+                        // Assuming only one question is present
+                        var question = currentQuiz.vragen[0];
+
+                        // Display the question text
+                        EditVraag.Text = question.vraagtext;
+
+                        // Display the answers in the textboxes
+                        EditAntwoord0.Text = question.antwoord[0];
+                        EditAntwoord1.Text = question.antwoord[1];
+                        EditAntwoord2.Text = question.antwoord[2];
+                        EditAntwoord3.Text = question.antwoord[3];
+
+                        // Optionally, set the correct checkboxes based on the correctAntwoord value
+                        EditCheck0.IsChecked = question.correctAntwoord == 0;
+                        EditCheck1.IsChecked = question.correctAntwoord == 1;
+                        EditCheck2.IsChecked = question.correctAntwoord == 2;
+                        EditCheck3.IsChecked = question.correctAntwoord == 3;
+                    }
+                }
+            }
+        }
+
+        private void OpslaanEdit_Click(object sender, RoutedEventArgs e)
+        {
+            //Yes
         }
     }
 }

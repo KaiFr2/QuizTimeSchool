@@ -57,7 +57,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Bewerk Knop" Click="Bewerkclick"/>
+                                <Button Content="Bewerk Knop" Tag="{Binding iD}" Click="Bewerkclick"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -74,6 +74,23 @@
             </Label>
             <Label x:Name="Antwoordbox3" Content="Label" HorizontalAlignment="Left" Margin="576,402,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FF24FF00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
             <Label x:Name="QuestionCounterLabel" Content="Vraag" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" FontSize="16" />
+        </Grid>
+        <Grid x:Name="Bewerkpg" Visibility="Hidden">
+            <TextBox x:Name="EditAntwoord0" HorizontalAlignment="Left" Margin="273,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="EditAntwoord1" HorizontalAlignment="Left" Margin="560,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.488,0.704"/>
+            <TextBox x:Name="EditAntwoord2" HorizontalAlignment="Left" Margin="273,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="EditAntwoord3" HorizontalAlignment="Left" Margin="560,392,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <CheckBox x:Name="EditCheck0" HorizontalAlignment="Left" Margin="528,395,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="EditCheck1" HorizontalAlignment="Left" Margin="528,269,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="EditCheck2" HorizontalAlignment="Left" Margin="249,264,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="EditCheck3" HorizontalAlignment="Left" Margin="249,395,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="EditVraag" HorizontalAlignment="Center" Margin="0,195,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+            <Button x:Name="NextButton" Content="Next" Click="NextButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,332,188,0" />
+            <Button x:Name="PreviousButton" Content="Previous" Click="PreviousButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,332,708,0" />
+            <TextBox x:Name="TijdEdit" HorizontalAlignment="Center" Margin="0,163,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="BeschrijvingEdit" Margin="0,133,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="TitleEdit" Margin="0,97,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+            <Button Content="Opslaan" HorizontalAlignment="Left" Margin="433,452,0,0" VerticalAlignment="Top" Click="OpslaanEdit_Click"/>
         </Grid>
     </Grid>
 </Window>

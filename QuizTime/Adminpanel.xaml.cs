@@ -59,7 +59,7 @@ namespace QuizTime
             else
             {
                 // If there are no previous questions or the index is invalid, display a message or perform any other desired action
-                MessageBox.Show("No previous questions!");
+                MessageBox.Show("Geen vorige vragen meer!");
             }
         }
 
@@ -101,7 +101,7 @@ namespace QuizTime
             else
             {
                 // If there are no more questions, display a message or perform any other desired action
-                MessageBox.Show("No more questions!");
+                MessageBox.Show("Geen vragen meer!");
             }
         }
 
