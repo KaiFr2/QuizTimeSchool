@@ -247,16 +247,69 @@ namespace QuizTime
             }
         }
 
+        private int currentIndex = 0; // Track the current question index
+
+        private int currentQuestionIndex = 0;
+
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            //currentIndex++;
-            //UpdateQuestionAndAnswers();
+            if (currentQuiz != null && currentQuiz.vragen.Count > 0)
+            {
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < currentQuiz.vragen.Count)
+                {
+                    // Display the next question and answers
+                    UpdateQuestionAndAnswers(currentQuestionIndex);
+                }
+                else
+                {
+                    // No more questions
+                    MessageBox.Show("Er zijn geen vragen meer.");
+                }
+            }
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            //currentIndex--;
-            //UpdateQuestionAndAnswers();
+            if (currentQuiz != null && currentQuiz.vragen.Count > 0)
+            {
+                currentQuestionIndex--;
+
+                if (currentQuestionIndex >= 0)
+                {
+                    // Display the previous question and answers
+                    UpdateQuestionAndAnswers(currentQuestionIndex);
+                }
+                else
+                {
+                    // No previous questions
+                    MessageBox.Show("Geen vorige vragen meer.");
+                }
+            }
+        }
+
+        private void UpdateQuestionAndAnswers(int questionIndex)
+        {
+            var question = currentQuiz.vragen[questionIndex];
+
+            // Update the question text
+            EditVraag.Text = question.vraagtext;
+
+            // Update the answer textboxes and checkboxes
+            if (question.antwoord.Length >= 4)
+            {
+                EditAntwoord0.Text = question.antwoord[0];
+                EditAntwoord1.Text = question.antwoord[1];
+                EditAntwoord2.Text = question.antwoord[2];
+                EditAntwoord3.Text = question.antwoord[3];
+
+                // Optionally, set the correct checkboxes based on the correctAntwoord value
+                EditCheck0.IsChecked = question.correctAntwoord == 0;
+                EditCheck1.IsChecked = question.correctAntwoord == 1;
+                EditCheck2.IsChecked = question.correctAntwoord == 2;
+                EditCheck3.IsChecked = question.correctAntwoord == 3;
+            }
         }
 
         private void Bewerkclick(object sender, RoutedEventArgs e)

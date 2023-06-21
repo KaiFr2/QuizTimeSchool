@@ -9,7 +9,7 @@
     <Grid Background="#FFE6D696">
         <Button Content="Vorige vraag" HorizontalAlignment="Left" Margin="91,140,0,0" VerticalAlignment="Top" Height="82" Width="170" Click="Vorige_Click" Background="#FFE1FF68"/>
         <Button Content="Volgende vraag" HorizontalAlignment="Left" Margin="537,140,0,0" VerticalAlignment="Top" Height="82" Width="167" Click="Volgende_Click" Background="#FFE1FF68"/>
-        <Button Content="Toon antwoord" HorizontalAlignment="Center" Margin="0,69,0,0" VerticalAlignment="Top" Height="81" Width="96" Click="Toon_Click" Background="#FF00FFF4"/>
+        <Button Content="Toon antwoord" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" Height="81" Width="101" Click="Toon_Click" Background="#FF00FFF4"/>
         <Button Content="Tijd starten" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="114" Width="204" Click="Tijdstart_Click" Background="#FF1AFF00"/>
         <Button Content="Tijd stoppen" HorizontalAlignment="Center" Margin="0,308,0,0" VerticalAlignment="Top" Height="116" Width="204" Click="Tijdstop_Click" Background="Red"/>
     </Grid>
