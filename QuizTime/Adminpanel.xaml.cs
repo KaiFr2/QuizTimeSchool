@@ -19,11 +19,14 @@ namespace QuizTime
     {
         public static MainWindow MainWindowScherm;
         public int QuizId;
+        private bool isTimerPaused = false;
 
         public Adminpanel()
         {
             InitializeComponent();
         }
+
+        private int currentQuestionIndex = 0; // Keeps track of the current question index
 
 
         private void Vorige_Click(object sender, RoutedEventArgs e)
@@ -33,7 +36,6 @@ namespace QuizTime
             if (currentQuestionIndex >= 0 && currentQuestionIndex < MainWindowScherm.currentQuiz.vragen.Count)
             {
                 // If there are valid previous questions, update the content of the labels with the respective question text and answer options
-
                 var currentQuestion = MainWindowScherm.currentQuiz.vragen[currentQuestionIndex];
 
                 // Update Vraagstelling
@@ -51,10 +53,13 @@ namespace QuizTime
                 // Update Antwoordbox3
                 MainWindowScherm.Antwoordbox3.Content = currentQuestion.antwoord[3];
 
+                // Reset label visibility
                 ResetLabelVisibility();
 
-                UpdateQuestionCounter();
+                // Update image
+                UpdateQuestionImage(currentQuestion.imagePath);
 
+                UpdateQuestionCounter();
             }
             else
             {
@@ -63,10 +68,6 @@ namespace QuizTime
             }
         }
 
-
-
-        private int currentQuestionIndex = 0; // Keeps track of the current question index
-
         private void Volgende_Click(object sender, RoutedEventArgs e)
         {
             currentQuestionIndex++; // Increment the index to move to the next question
@@ -74,7 +75,6 @@ namespace QuizTime
             if (currentQuestionIndex < MainWindowScherm.currentQuiz.vragen.Count)
             {
                 // If there are more questions, update the content of the labels with the respective question text and answer options
-
                 var currentQuestion = MainWindowScherm.currentQuiz.vragen[currentQuestionIndex];
 
                 // Update Vraagstelling
@@ -92,18 +92,36 @@ namespace QuizTime
                 // Update Antwoordbox3
                 MainWindowScherm.Antwoordbox3.Content = currentQuestion.antwoord[3];
 
+                // Reset label visibility
                 ResetLabelVisibility();
 
+                // Update image
+                UpdateQuestionImage(currentQuestion.imagePath);
+
                 UpdateQuestionCounter();
-
             }
-
             else
             {
                 // If there are no more questions, display a message or perform any other desired action
                 MessageBox.Show("Geen vragen meer!");
             }
         }
+
+        private void UpdateQuestionImage(string imagePath)
+        {
+            if (!string.IsNullOrEmpty(imagePath))
+            {
+                BitmapImage image = new BitmapImage(new Uri(imagePath));
+                MainWindowScherm.Afbeeldinggame.Source = image;
+            }
+            else
+            {
+                MainWindowScherm.Afbeeldinggame.Source = null;
+            }
+        }
+
+
+
 
 
 
@@ -162,13 +180,62 @@ namespace QuizTime
             int totalQuestions = MainWindowScherm.currentQuiz.vragen.Count;
             MainWindowScherm.QuestionCounterLabel.Content = $"Question {currentQuestionNumber} of {totalQuestions}";
         }
+        private DispatcherTimer quizTimer; // Declare a DispatcherTimer for the quiz timer
+        private TimeSpan timeRemaining; // Declare a variable to track the remaining time
+
         private void Tijdstart_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Get the time value from JSON (assuming it's stored as a string)
+            string timeInSecondsString = MainWindowScherm.currentQuiz.tijd;
+
+            // Convert the string to an integer
+            if (int.TryParse(timeInSecondsString, out int timeInSeconds))
+            {
+                // Create a TimeSpan object from the timeInSeconds value
+                timeRemaining = TimeSpan.FromSeconds(timeInSeconds);
+
+                // Initialize and start the quiz timer
+                quizTimer = new DispatcherTimer();
+                quizTimer.Interval = TimeSpan.FromSeconds(1);
+                quizTimer.Tick += QuizTimer_Tick;
+                quizTimer.Start();
+            }
+            else
+            {
+                // Handle invalid time format (e.g., display an error message)
+            }
         }
         private void Tijdstop_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Pause the quiz timer
+            if (quizTimer != null && quizTimer.IsEnabled)
+            {
+                quizTimer.Stop();
+                isTimerPaused = true;
+            }
+        }
+
+        private void QuizTimer_Tick(object sender, EventArgs e)
+        {
+            // Decrement the time remaining by one second
+            timeRemaining = timeRemaining.Subtract(TimeSpan.FromSeconds(1));
+
+            // Update the timer display
+            MainWindowScherm.TijdLabel.Content = "Tijd: " + timeRemaining.ToString();
+
+            // Check if the timer has reached zero
+            if (timeRemaining.TotalSeconds <= 0)
+            {
+                // Stop the timer
+                quizTimer.Stop();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            MainWindowScherm.homescreen.Visibility = Visibility.Visible;
+            MainWindowScherm.Speel.Visibility = Visibility.Hidden;
         }
     }
 }

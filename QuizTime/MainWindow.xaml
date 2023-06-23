@@ -7,11 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="530" Width="937">
     <Grid x:Name="main" Background="#FFE6D696">
-        <Grid x:Name="Start" Visibility="Hidden">
-            <Label x:Name="Title" Content="Quiztime" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top"/>
-            <Button Content="Begin met QuizTime" HorizontalAlignment="Center" Margin="0,257,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        </Grid>
-        <Grid x:Name="homescreen" Visibility="Hidden">
+        <Grid x:Name="homescreen" Visibility="Visible">
             <Button x:Name="btnspeellijst" Content="Kies lijst" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="btnspeellijst_Click" Height="121" Width="188" Margin="0,192,0,0" FontFamily="Gill Sans Ultra Bold" FontSize="16" Background="#FFFFE959" Foreground="#FF802892"/>
             <Button Content="Maak Quiz" HorizontalAlignment="Center" Margin="0,347,0,0" VerticalAlignment="Top" Click="Maakquiz_Click" Height="116" Width="188" FontFamily="Gill Sans Ultra Bold" FontSize="16" Background="#FFFFE959" Foreground="#FF802892"/>
             <Image Margin="288,-63,289,296" Source="/pngtree-quiz-time-png-png-image_6099003.png" Stretch="Fill"/>
@@ -19,29 +15,29 @@
         <Grid x:Name="maaklijst" Visibility="Hidden" RenderTransformOrigin="0.495,0.509">
             <Label Content="Title " HorizontalAlignment="Left" Margin="386,178,0,0" VerticalAlignment="Top"/>
             <Label Content="Beschrijving" HorizontalAlignment="Left" Margin="385,0,0,0" VerticalAlignment="Center"/>
-            <Label Content="Tijd" HorizontalAlignment="Left" Margin="385,305,0,0" VerticalAlignment="Top"/>
+            <Label Content="Tijd per vraag in secondes" HorizontalAlignment="Left" Margin="385,305,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="TitleQTB" HorizontalAlignment="Left" Margin="388,206,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Beschrijving" HorizontalAlignment="Left" Margin="388,270,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="tijd" HorizontalAlignment="Left" Margin="388,334,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <Button Content="Opslaan" HorizontalAlignment="Left" Margin="404,379,0,0" VerticalAlignment="Top" Click="Button_Click_3" Height="26" Width="81" Background="#FF37FF00"/>
             <Button Content="Terug" HorizontalAlignment="Left" Margin="404,426,0,0" VerticalAlignment="Top" Height="23" Width="80" Click="Button_Click_1" Background="Red"/>
         </Grid>
-        <Grid x:Name="maaklijst2" Visibility="Visible">
-            <CheckBox x:Name="Check3" HorizontalAlignment="Left" Margin="504,314,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,0.784" Click="onCheckBoxCheck"/>
-            <CheckBox x:Name="Check1" HorizontalAlignment="Left" Margin="262,311,0,0" VerticalAlignment="Top" Click="onCheckBoxCheck"/>
-            <CheckBox x:Name="Check0" HorizontalAlignment="Left" Margin="262,0,0,0" VerticalAlignment="Center" Click="onCheckBoxCheck"/>
-            <CheckBox x:Name="Check2" HorizontalAlignment="Left" Margin="504,0,0,0" VerticalAlignment="Center" Click="onCheckBoxCheck"/>
+        <Grid x:Name="maaklijst2" Visibility="Hidden">
+            <CheckBox x:Name="Check3" HorizontalAlignment="Left" Margin="513,312,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="onCheckBoxCheck"/>
+            <CheckBox x:Name="Check1" HorizontalAlignment="Left" Margin="270,312,0,0" VerticalAlignment="Top" Click="onCheckBoxCheck"/>
+            <CheckBox x:Name="Check0" HorizontalAlignment="Left" Margin="270,248,0,0" VerticalAlignment="Top" Click="onCheckBoxCheck"/>
+            <CheckBox x:Name="Check2" HorizontalAlignment="Left" Margin="513,248,0,0" VerticalAlignment="Top" Click="onCheckBoxCheck"/>
             <TextBox x:Name="Antwoord0" HorizontalAlignment="Left" Margin="303,247,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Antwoord1" HorizontalAlignment="Left" Margin="303,311,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Antwoord2" HorizontalAlignment="Left" Margin="546,247,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="Antwoord3" HorizontalAlignment="Left" Margin="546,311,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <Button x:Name="Quizmaken" Content="Vraag opslaan" HorizontalAlignment="Center" Margin="0,356,0,0" VerticalAlignment="Top" Click="Opslaan_Click" Height="47" Width="120" Background="#FF11FF00"/>
-            <Button x:Name="Clear" Content="Clear" HorizontalAlignment="Center" Margin="0,408,0,0" VerticalAlignment="Top" Click="Clear_Click" Height="37" Width="120" Background="#FF00FFE2"/>
             <TextBox x:Name="Vraagtextbox" HorizontalAlignment="Center" Margin="0,158,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-            <Label Content="Vraag&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,133,0,0" VerticalAlignment="Top"/>
+            <Label Content="Vraagstelling&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,133,0,0" VerticalAlignment="Top"/>
             <Button Content="Terug" HorizontalAlignment="Center" Margin="0,450,0,0" VerticalAlignment="Top" Click="Button_Click_4" Height="45" Width="120" Background="Red"/>
             <Button Content="Maak Quiz" HorizontalAlignment="Left" Margin="270,408,0,0" Click="Quizopslaan_click" VerticalAlignment="Top" Height="37" Width="93" Background="#FFE0FF43"/>
-            <Image HorizontalAlignment="Left" Height="100" Margin="423,29,0,0" VerticalAlignment="Top" Width="100"/>
+            <Image x:Name="QuizImage" HorizontalAlignment="Left" Height="100" Margin="423,29,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button x:Name="imageuploadbutton" Content="Afbeelding" HorizontalAlignment="Center" Margin="0,406,0,0" VerticalAlignment="Top" Click="UploadImageButton_Click" Height="40" Width="120" Background="#FF00FFCF"/>
         </Grid>
         <Grid x:Name="Kieslijst" Visibility="Hidden">
             <DataGrid x:Name="dgAllQuizzes" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" Background="#FFE6D696">
@@ -64,6 +60,7 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <Button Content="Terug" HorizontalAlignment="Left" Margin="811,445,0,0" VerticalAlignment="Top" Height="69" Width="126" Background="Red" Foreground="White" Click="Button_Click_2"/>
 
         </Grid>
         <Grid x:Name="Speel" Visibility="Hidden">
@@ -75,6 +72,7 @@
             </Label>
             <Label x:Name="Antwoordbox3" Content="Label" HorizontalAlignment="Left" Margin="576,402,0,0" VerticalAlignment="Top" Height="76" Width="128" Background="#FF24FF00" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
             <Label x:Name="QuestionCounterLabel" Content="Vraag" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" FontSize="16" />
+            <Image x:Name="Afbeeldinggame" HorizontalAlignment="Left" Height="123" Margin="408,98,0,0" VerticalAlignment="Top" Width="151"/>
         </Grid>
         <Grid x:Name="Bewerkpg" Visibility="Hidden">
             <TextBox x:Name="EditAntwoord0" HorizontalAlignment="Left" Margin="273,266,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -86,12 +84,15 @@
             <CheckBox x:Name="EditCheck2" HorizontalAlignment="Left" Margin="249,264,0,0" VerticalAlignment="Top"/>
             <CheckBox x:Name="EditCheck3" HorizontalAlignment="Left" Margin="249,395,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="EditVraag" HorizontalAlignment="Center" Margin="0,195,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="NextButton" Content="Next" Click="NextButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,332,188,0" />
-            <Button x:Name="PreviousButton" Content="Previous" Click="PreviousButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,332,708,0" />
+            <Button x:Name="NextButton" Content="Next" Click="NextButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,332,153,0" Height="40" Width="64" Background="#FFDDFF6F" />
+            <Button x:Name="PreviousButton" Content="Previous" Click="PreviousButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,332,704,0" Height="40" Width="53" Background="#FFDDFF6F"/>
             <TextBox x:Name="TijdEdit" HorizontalAlignment="Center" Margin="0,163,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="BeschrijvingEdit" Margin="0,133,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="TitleEdit" Margin="0,97,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-            <Button Content="Opslaan" HorizontalAlignment="Left" Margin="433,452,0,0" VerticalAlignment="Top" Click="OpslaanEdit_Click"/>
+            <Button Content="Opslaan" HorizontalAlignment="Center" Margin="0,440,0,0" VerticalAlignment="Top" Click="OpslaanEdit_Click" Background="#FF1AFF00" Height="30" Width="95"/>
+            <Image x:Name="Afbeeldingbewerk" Margin="134,81,659,312"/>
+            <Button x:Name="EditUploadImageButton" Content="Upload Image" Click="EditUploadImageButton_Click" Margin="420,392,421,79" Background="#FF00FFE2"/>
+
         </Grid>
     </Grid>
 </Window>

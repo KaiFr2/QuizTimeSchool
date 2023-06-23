@@ -26,7 +26,7 @@ namespace QuizTime.Class
             this.tijd = tijd;
         }
 
-        public void newVraag(string vraagtext_, string[] antwoord_, int correctAntwoord_)
+        public void newVraag(string vraagtext_, string[] antwoord_, int correctAntwoord_, string imagePath_)
         {
             int newID;
 
@@ -41,7 +41,7 @@ namespace QuizTime.Class
                 newID = 0;
             }
 
-            vragen.Add(new vraag(newID, vraagtext_, antwoord_, correctAntwoord_));
+            vragen.Add(new vraag(newID, vraagtext_, antwoord_, correctAntwoord_, imagePath_));
         }
 
     }

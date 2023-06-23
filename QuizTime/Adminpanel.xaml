@@ -12,5 +12,6 @@
         <Button Content="Toon antwoord" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" Height="81" Width="101" Click="Toon_Click" Background="#FF00FFF4"/>
         <Button Content="Tijd starten" HorizontalAlignment="Center" Margin="0,181,0,0" VerticalAlignment="Top" Height="114" Width="204" Click="Tijdstart_Click" Background="#FF1AFF00"/>
         <Button Content="Tijd stoppen" HorizontalAlignment="Center" Margin="0,308,0,0" VerticalAlignment="Top" Height="116" Width="204" Click="Tijdstop_Click" Background="Red"/>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="114,338,0,0" VerticalAlignment="Top" Height="56" Width="124" Background="Red" Click="Button_Click"/>
     </Grid>
 </Window>

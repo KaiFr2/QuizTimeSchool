@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using QuizTime.Class;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+
 
 namespace QuizTime
 {
@@ -27,8 +30,10 @@ namespace QuizTime
         private string checked_answer = "";
         private int currentID = 1;
         public quiz currentQuiz;
+        private DispatcherTimer quizTimer;
         int quizID;
         string quizzz;
+        string imagePath;
         //Adminpanel adminWindow = new Adminpanel();
         public MainWindow()
         {
@@ -36,12 +41,7 @@ namespace QuizTime
         }
 
         //Begin scherm knop
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //start scherm
-            Start.Visibility = Visibility.Hidden;
-            homescreen.Visibility = Visibility.Visible;
-        }
+       
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             maaklijst.Visibility = Visibility.Hidden;
@@ -113,6 +113,18 @@ namespace QuizTime
             maaklijst2.Visibility = Visibility.Visible;
         }
 
+        private void UploadImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files  (*.jpg, *.jpeg, *.png, *.gif) | *.jpg; *.jpeg; *.png; *.gif";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imagePath = openFileDialog.FileName;
+
+                QuizImage.Source = new BitmapImage(new Uri(imagePath));
+            }
+        }
 
         //Het opslaan van de vragen
         private void Opslaan_Click(object sender, RoutedEventArgs e)
@@ -137,12 +149,14 @@ namespace QuizTime
                 return;
             }
 
+            // Check if an image is selected
+            if (string.IsNullOrWhiteSpace(imagePath))
+            {
+                MessageBox.Show("Selecteer een afbeelding.");
+                return;
+            }
 
             // Additional validation logic if needed
-
-            // Increment quizID
-            quizID++;
-            File.WriteAllText("count.txt", quizID.ToString());
 
             // Store answer options in an array
             string[] vraagOpties = new string[4];
@@ -151,12 +165,32 @@ namespace QuizTime
             vraagOpties[2] = Antwoord2.Text;
             vraagOpties[3] = Antwoord3.Text;
 
-            // Call newVraag method with the necessary parameters
-            currentQuiz.newVraag(Vraagtextbox.Text, vraagOpties, int.Parse(checked_answer));
+            // Call newVraag method with the necessary parameters, including the image path
+            currentQuiz.newVraag(Vraagtextbox.Text, vraagOpties, int.Parse(checked_answer), imagePath);
+
+            // Clear the image path after assigning it to the question
+            imagePath = string.Empty;
+
+            // Clear the input fields for the next question
+            Vraagtextbox.Clear();
+            Antwoord0.Clear();
+            Antwoord1.Clear();
+            Antwoord2.Clear();
+            Antwoord3.Clear();
+
+            // Clear the selected answer checkbox
+            Check0.IsChecked = false;
+            Check1.IsChecked = false;
+            Check2.IsChecked = false;
+            Check3.IsChecked = false;
+
+            // Clear the displayed image
+            QuizImage.Source = null;
 
             // Display "Vraag opgeslagen" message
             MessageBox.Show("Vraag opgeslagen");
         }
+
 
 
 
@@ -170,6 +204,7 @@ namespace QuizTime
             maaklijst2.Visibility = Visibility.Hidden;
             homescreen.Visibility = Visibility.Visible;
         }
+
 
 
         //Checkbox checken knop
@@ -190,13 +225,20 @@ namespace QuizTime
         //Textboxes clearen
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            //clear alles knop
+            // Clear the image path
+            imagePath = string.Empty;
+
+            // Clear the image source
+            QuizImage.Source = null;
+
+            // Clear all the text fields
             Vraagtextbox.Clear();
             Antwoord0.Clear();
             Antwoord1.Clear();
             Antwoord2.Clear();
             Antwoord3.Clear();
         }
+
 
         //Terug naar home button
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -206,7 +248,7 @@ namespace QuizTime
             homescreen.Visibility = Visibility.Visible;
         }
 
-
+       
         //Het spelen van de quiz knop
         private void playbutton(object sender, RoutedEventArgs e)
         {
@@ -219,33 +261,38 @@ namespace QuizTime
             Adminpanel.MainWindowScherm = this;
             ControlPanelWindow.Show();
 
-
-            //Pakt de ID van de quiz
+            // Pakt de ID van de quiz
             Button button = sender as Button;
             var id = button.Tag;
 
-            //Roept de functie op voor het ophalen van de juiste quiz ID
+            // Roept de functie op voor het ophalen van de juiste quiz ID
             currentQuiz = json.FetchQuiz((int)id);
 
-            //displayed het vraag
+            // displayed het vraag
             Vraagstelling.Content = currentQuiz.vragen[0].vraagtext;
 
-            //variable voor tijd
+            // Variable for time
             var timerValue = currentQuiz.tijd;
 
             // Timer display
-            TijdLabel.Content = "Tijd: " + timerValue.ToString();
+            TijdLabel.Content = "Tijd: " + timerValue;
+
+            string imagePath = currentQuiz.vragen[0].imagePath;
+            if (!string.IsNullOrEmpty(imagePath))
+            {
+                Afbeeldinggame.Source = new BitmapImage(new Uri(imagePath));
+            }
 
             ControlPanelWindow.UpdateQuestionCounter();
 
-
-            //loop waar de antwoorden doorheen worden gekeken en dat in de labels word erin gezet
+            // loop waar de antwoorden doorheen worden gekeken en dat in de labels worden gezet
             for (int i = 0; i < currentQuiz.vragen[0].antwoord.Length; i++)
             {
                 var lbl = Speel.FindName("Antwoordbox" + i.ToString()) as Label;
                 lbl.Content = currentQuiz.vragen[0].antwoord[i];
             }
         }
+
 
         private int currentIndex = 0; // Track the current question index
 
@@ -312,6 +359,24 @@ namespace QuizTime
             }
         }
 
+        private void EditUploadImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files (*.jpg, *.jpeg, *.png, *.gif) | *.jpg; *.jpeg; *.png; *.gif";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string imagePath = openFileDialog.FileName;
+
+                // Update the image source of the image label or control
+                Afbeeldingbewerk.Source = new BitmapImage(new Uri(imagePath));
+
+                // Optionally, you can update the image path in the current question object
+                var question = currentQuiz.vragen[currentQuestionIndex];
+                question.imagePath = imagePath;
+            }
+        }
+
         private void Bewerkclick(object sender, RoutedEventArgs e)
         {
             Kieslijst.Visibility = Visibility.Hidden;
@@ -351,14 +416,91 @@ namespace QuizTime
                         EditCheck1.IsChecked = question.correctAntwoord == 1;
                         EditCheck2.IsChecked = question.correctAntwoord == 2;
                         EditCheck3.IsChecked = question.correctAntwoord == 3;
+
+                        // Load the image for the question
+                        Afbeeldingbewerk.Source = new BitmapImage(new Uri(question.imagePath));
                     }
                 }
             }
         }
 
+
         private void OpslaanEdit_Click(object sender, RoutedEventArgs e)
         {
-            //Yes
+            if (currentQuiz != null)
+            {
+                currentQuiz.title = TitleEdit.Text;
+                currentQuiz.beschrijving = BeschrijvingEdit.Text;
+
+                var question = currentQuiz.vragen[currentQuestionIndex];
+
+                question.vraagtext = EditVraag.Text;
+
+                if (question.antwoord.Length >= 4)
+                {
+                    question.antwoord[0] = EditAntwoord0.Text;
+                    question.antwoord[1] = EditAntwoord1.Text;
+                    question.antwoord[2] = EditAntwoord2.Text;
+                    question.antwoord[3] = EditAntwoord3.Text;
+
+                    if (EditCheck0.IsChecked == true)
+                        question.correctAntwoord = 0;
+                    else if (EditCheck1.IsChecked == true)
+                        question.correctAntwoord = 1;
+                    else if (EditCheck2.IsChecked == true)
+                        question.correctAntwoord = 2;
+                    else if (EditCheck3.IsChecked == true)
+                        question.correctAntwoord = 3;
+                }
+
+                // Save the updated image path
+                question.imagePath = Afbeeldingbewerk.Source.ToString();
+
+                // Save the updated currentQuiz object to the JSON file
+                json.WriteDataToFile(currentQuiz);
+
+                MessageBox.Show("Wijzigingen zijn opgeslagen.");
+            }
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Kieslijst.Visibility = Visibility.Hidden;
+            homescreen.Visibility = Visibility.Visible;
+        }
+
+
+
+        /*private void UploadImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Open a file dialog to select an image file
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string imagePath = openFileDialog.FileName;
+                    
+                // Call the function to save the image path to JSON
+                SaveImagePathToJson(imagePath);
+
+                // Display the selected image in the Image control
+                QuizImage.Source = new BitmapImage(new Uri(imagePath));
+            }
+        }
+
+
+
+        private void SaveImagePathToJson(string imagePath)
+        {
+            if (currentQuiz != null && currentQuiz.vragen.Count > 0)
+            {
+                int currentQuestionIndex = 0; // Assuming you are updating the first question
+                currentQuiz.vragen[currentQuestionIndex].imagePath = imagePath;
+
+                // Save the updated JSON data
+                json.WriteDataToFile(currentQuiz);
+            }
+        }*/
     }
 }
